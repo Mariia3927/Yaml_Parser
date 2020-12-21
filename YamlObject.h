@@ -14,8 +14,8 @@ public:
 	YamlValue at(const std::string& key);
 
 	void PushBack(const std::string& key, const YamlValue& value);
-	size_t Size() const { return m_object.size(); }
-	void Clear() { m_object.clear(); }
+	size_t Size() const;
+	void Clear();
 	std::string Dump() const;
 
 private:

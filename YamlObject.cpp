@@ -371,6 +371,16 @@ void YamlObject::PushBack(const std::string & key, const YamlValue & value)
 	m_object[key] = value;
 }
 
+size_t YamlObject::Size() const 
+{ 
+	return m_object.size(); 
+}
+
+void YamlObject::Clear() 
+{ 
+	m_object.clear(); 
+}
+
 std::string YamlObject::Dump() const
 {
 	std::string result = "";

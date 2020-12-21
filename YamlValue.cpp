@@ -4,76 +4,19 @@
 
 YamlValue::YamlValue(const YamlValue & object) : m_type(object.m_type)
 {
-	SetDefaultValues();
-	switch (m_type)
-	{
-	case Int:
-		m_int = object.m_int;
-		break;
-	case Double:
-		m_double = object.m_double;
-		break;
-	case String:
-		m_string = object.m_string;
-		break;
-	case Bool:
-		m_bool = object.m_bool;
-		break;
-	case Array_Int:
-		m_vectorOfInt = object.m_vectorOfInt;
-		break;
-	case Array_Double:
-		m_vectorOfDouble = object.m_vectorOfDouble;
-		break;
-	case Array_String:
-		m_vectorOfString = object.m_vectorOfString;
-		break;
-	case Array_Bool:
-		m_vectorOfBool = object.m_vectorOfBool;
-		break;
-	case Object:
-		m_object = object.m_object;
-		break;
-	}
+	SetValueByType();
 }
 
 YamlValue & YamlValue::operator=(const YamlValue & object)
 {
 	if (this == &object)
-		return *this;
-
-	SetDefaultValues();
-	m_type = object.m_type;
-	switch (m_type)
 	{
-	case Int:
-		m_int = object.m_int;
-		break;
-	case Double:
-		m_double = object.m_double;
-		break;
-	case String:
-		m_string = object.m_string;
-		break;
-	case Bool:
-		m_bool = object.m_bool;
-		break;
-	case Array_Int:
-		m_vectorOfInt = object.m_vectorOfInt;
-		break;
-	case Array_Double:
-		m_vectorOfDouble = object.m_vectorOfDouble;
-		break;
-	case Array_String:
-		m_vectorOfString = object.m_vectorOfString;
-		break;
-	case Array_Bool:
-		m_vectorOfBool = object.m_vectorOfBool;
-		break;
-	case Object:
-		m_object = object.m_object;
-		break;
+		return *this;
 	}
+		
+	m_type = object.m_type;
+	SetValueByType();
+
 	return *this;
 }
 
@@ -104,6 +47,13 @@ std::string YamlValue::GetStringRepresentationOfValue() const
 	default:
 		return "";
 	}
+}
+
+void YamlValue::SetObject(const std::map<std::string, YamlValue>& map)
+{ 
+	SetDefaultValues(); 
+	m_type = Object; 
+	m_object = map; 
 }
 
 std::string YamlValue::GetStringFromVectorOfInt() const
@@ -155,3 +105,38 @@ void YamlValue::SetDefaultValues()
 	m_vectorOfBool = {};
 }
 
+void setValueByType(const YamlValue& object)
+{
+	SetDefaultValues();
+
+	switch (object.m_type)
+	{
+	case Int:
+		m_int = object.m_int;
+		break;
+	case Double:
+		m_double = object.m_double;
+		break;
+	case String:
+		m_string = object.m_string;
+		break;
+	case Bool:
+		m_bool = object.m_bool;
+		break;
+	case Array_Int:
+		m_vectorOfInt = object.m_vectorOfInt;
+		break;
+	case Array_Double:
+		m_vectorOfDouble = object.m_vectorOfDouble;
+		break;
+	case Array_String:
+		m_vectorOfString = object.m_vectorOfString;
+		break;
+	case Array_Bool:
+		m_vectorOfBool = object.m_vectorOfBool;
+		break;
+	case Object:
+		m_object = object.m_object;
+		break;
+	}
+}

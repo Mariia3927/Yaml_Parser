@@ -22,7 +22,7 @@ public:
 	YamlValue& operator=(const YamlValue& obj);
 
 	std::string GetStringRepresentationOfValue() const;
-	void SetObject(const std::map<std::string, YamlValue>& map) { SetDefaultValues(); m_type = Object; m_object = map; }
+	void SetObject(const std::map<std::string, YamlValue>& map);
 	
 private:
 	std::string GetStringFromVectorOfInt() const;
@@ -31,7 +31,7 @@ private:
 	std::string GetStringFromVectorOfBool() const;
 
 	void SetDefaultValues();
-	
+	void setValueByType(const YamlValue& object);
 private:
 	YamlValueType m_type;
 
